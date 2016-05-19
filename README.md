@@ -1,6 +1,5 @@
 # react-stateless-input
-Alternative to refs inside your **React stateless components**, you can use this snippet with or without React and any library.
-
+Alternative to refs for your inputs inside your **React stateless components**, of course you can use this snippet with or without React and with any library.
 
 ## What is it ?
 
