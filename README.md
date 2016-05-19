@@ -5,7 +5,7 @@ Alternative to refs inside your **React stateless components**, you can use this
 ## What is it ?
 
 It's just two lines of ES6+ :
-```
+```js
 let o, i, l = document.querySelectorAll('input:not([type=submit])')
 for (i of l) { o = { ...o, [i.name]: i.value } } return o
 ```
