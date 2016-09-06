@@ -1,12 +1,19 @@
 # react-stateless-input
-Alternative to refs for your inputs inside your **React stateless components**, of course you can use this snippet with or without React and with any library.
+Alternative to refs for your inputs and selects inside your **React stateless components**, of course you can use this snippet with or without React and with any library.
 
 ## What is it ?
 
-It's just two lines of ES6+ :
+It's just a few lines of ES6+ :
 ```js
-let o, i, l = document.querySelectorAll('input:not([type=submit])')
-for (i of l) { o = { ...o, [i.name]: i.value } } return o
+const baseSelector = formName ? `#${formName} ` : '';
+const inputs = document.querySelectorAll(`${baseSelector}input:not([type=submit])`);
+const selects = document.querySelectorAll(`${baseSelector}select`);
+return [...inputs, ...selects].reduce((acc, cur) => (
+  {
+    ...acc,
+    [cur.name]: cur.value,
+  }
+), {});
 ```
 
 ## Example
@@ -23,15 +30,23 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { email, password } = inputs()
+    const { email, password, choice } = inputs("mainForm")
+    // const { email, password, choice, test } = inputs()
     login(email, password)
   }
 
   return(
-    <form onSubmit={handleSubmit}>
+    <form id="mainForm" onSubmit={handleSubmit}>
       <input type="email" name="email" placeholder="Email"/>
       <input type="password" name="password" placeholder="Password"/>
+      <select name="choice">
+        <option value="1">#1</options>
+        <option value="2">#2</options>
+      </select>
       <input type="submit"/>
+    </form>
+    <form id="secondForm">
+      <input type="text" name="test" placeholder="Test"/>
     </form>
   )
 
