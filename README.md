@@ -16,6 +16,11 @@ return [...inputs, ...selects].reduce((acc, cur) => (
 ), {});
 ```
 
+## How to use it?
+
+Just call the function to get an object containing each input as a key and its value as the corresponding value.
+It is possible to provide a form name to filter the inputs for only that form. The second argument is a boolean; setting it to true will exclude disabled inputs.
+
 ## Example
 
 ```js
@@ -32,6 +37,7 @@ const Login = (props) => {
     e.preventDefault()
     const { email, password, choice } = inputs("mainForm")
     // const { email, password, choice, test } = inputs()
+    // const { email, password, choice, test, disabled } = inputs(null, true)
     login(email, password)
   }
 
@@ -47,6 +53,9 @@ const Login = (props) => {
     </form>
     <form id="secondForm">
       <input type="text" name="test" placeholder="Test"/>
+    </form>
+    <form id="thirdForm">
+      <input type="text" name="disabled" placeholder="Disabled" disabled />
     </form>
   )
 

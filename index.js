@@ -1,13 +1,15 @@
-export default function inputs(formName) {
+export default function inputs(formName, excludeDisabled = false) {
   const baseSelector = formName ? `#${formName} ` : '';
   const inputs = document.querySelectorAll(`${baseSelector}input:not([type=submit])`);
   const selects = document.querySelectorAll(`${baseSelector}select`);
   const all = [...inputs, ...selects];
   const inputObject = all.reduce((acc, cur) => (
-    {
-      ...acc,
-      [cur.name]: cur.value,
-    }
+    excludeDisabled && cur.disabled ?
+      acc :
+      {
+        ...acc,
+        [cur.name]: cur.value,
+      }
   ), {});
 
   return inputObject;
@@ -16,11 +18,11 @@ export default function inputs(formName) {
 /*
 shortened version:
 
-export default function inputs(formName) {  
+export default function inputs(formName) {
   return [
     ...document.querySelectorAll(`${(formName ? `#${formName} ` : '')}input:not([type=submit])`),
     ...document.querySelectorAll(`${(formName ? `#${formName} ` : '')}select`)
-  ].reduce((acc, cur) => ({...acc, [cur.name]: cur.value}), {});
+  ].reduce((acc, cur) => ((excludeDisabled && cur.disabled) ? acc : {...acc, [cur.name]: cur.value}), {});
 };
 
 */
